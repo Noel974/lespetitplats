@@ -1,0 +1,14 @@
+html {
+    margin-bottom: 5rem;
+  }
+  
+  /* Réinitialisation des marges, des paddings et de la boîte */
+  *,
+  ::before,
+  ::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #1b1b1b;
+  }
+  
