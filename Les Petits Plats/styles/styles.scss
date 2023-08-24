@@ -1,2 +1,7 @@
 /*Body corps du site */
 @import url(./body/body.scss);
+@import url(./body/util.scss);
+
+/*Composoant*/
+@import url(./components/blog.scss);
+@import url(./components/logo.scss);
