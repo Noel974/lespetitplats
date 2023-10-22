@@ -1,4 +1,6 @@
 @import url(../utils/filtres.css);
+@import url(../utils/label.css);
+
 
 /* Importation des polices Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");

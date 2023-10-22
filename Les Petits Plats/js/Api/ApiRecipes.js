@@ -1,20 +1,9 @@
-
-
 const jsonDatas = './data/recipes.json';
 
-export {recipesArray};
-export {ingredientsObject };
-export {appliancesObject};
-export { ustensilesObject };
-
-const recipesArray = await getDatas();
-
-  // Extraction des ingrédients, des appareils et des ustensiles uniques
-  const ingredientsObject = extractUniqueItems(recipesArray, 'ingredients');
-  const appliancesObject = extractUniqueItems(recipesArray, 'appliance');
-  const ustensilesObject = extractUniqueItems(recipesArray, 'ustensils');
-
-// Fonction asynchrone pour récupérer les données JSON
+/**
+ * Récupère les données du fichier JSON.
+ * @returns {Promise<Object>} Les données JSON.
+ */
 async function getDatas() {
   try {
     const response = await fetch(jsonDatas);
@@ -22,40 +11,75 @@ async function getDatas() {
     if (!response.ok) {
       if (response.status === 404) throw new Error('Aucun fichier trouvé');
     }
-
-    // Convertit la réponse en JSON et la renvoie
-    const datas = await response.json();
-    return datas;
   } catch (e) {
-    console.error(e);
-    return null;
+    // eslint-disable-next-line no-console
+    console.log(e);
   }
+
+  const response = await fetch(jsonDatas);
+  const datas = await response.json();
+
+  return datas;
 }
 
-// Fonction générique pour extraire des éléments uniques d'un tableau de données
-function extractUniqueItems(dataArray, key) {
-  const uniqueItems = new Set(); // Utilisation d'un ensemble pour garantir l'unicité
-  dataArray.forEach((data) => {
-    if (Array.isArray(data[key])) { // Vérifie si data[key] est un tableau
-      data[key].forEach((item) => {
-        if (typeof item === 'string') {
-          uniqueItems.add(item.toLowerCase());
-        }
-      });
+/**
+ * Obtient tous les ingrédients disponibles.
+ * @returns {Object} L'objet contenant tous les ingrédients.
+ */
+function getFullIngredients() {
+  const ingredientsArray = [];
+  recipesArray.forEach((recipeObject) => {
+    const { ingredients } = recipeObject;
+    ingredients.forEach((ingredientObject) => {
+      const { ingredient } = ingredientObject;
+      if (!ingredientsArray.includes(ingredient.toLowerCase())) {
+        ingredientsArray.push(ingredient.toLowerCase());
+      }
+    });
+  });
+
+  const StartingredientsArray = { 'ingredients': ingredientsArray };
+  return StartingredientsArray;
+}
+
+/**
+ * Obtient tout le matériel (appareils) disponible.
+ * @returns {Object} L'objet contenant tout le matériel.
+ */
+function getFullAppliance() {
+  const appliancesArray = [];
+  recipesArray.forEach((recipe) => {
+    const { appliance } = recipe;
+    if (!appliancesArray.includes(appliance.toLowerCase())) {
+      appliancesArray.push(appliance.toLowerCase());
     }
   });
-  return { [key]: Array.from(uniqueItems) }; // Convertit l'ensemble en tableau et le renvoie dans un objet
-}
-// Fonction principale, exécutée de manière asynchrone
-(async () => {
-  const recipesArray = await getDatas();
-  if (!recipesArray) {
-    return; // Gérer les erreurs ici si nécessaire
-  }
 
-  // Affichage des résultats (vous pouvez les utiliser comme bon vous semble)
-  console.log('Données des recettes :', recipesArray);
-  console.log('Ingrédients uniques :', ingredientsObject);
-  console.log('Appareils uniques :', appliancesObject);
-  console.log('Ustensiles uniques :', ustensilesObject);
-})();
+  const finalApplianceObject = { 'appliances': appliancesArray };
+  return finalApplianceObject;
+}
+
+/**
+ * Obtient tous les ustensiles disponibles.
+ * @returns {Object} L'objet contenant tous les ustensiles.
+ */
+function getFullUstensils() {
+  const ustensilsArray = [];
+  recipesArray.forEach((recipe) => {
+    const { ustensils } = recipe;
+    ustensils.forEach((ustensil) => {
+      if (!ustensilsArray.includes(ustensil.toLowerCase())) {
+        ustensilsArray.push(ustensil.toLowerCase());
+      }
+    })});
+
+  const finalUstensilsObject = { 'ustensils': ustensilsArray };
+  return finalUstensilsObject;
+}
+
+// Récupération des données, des ingrédients, du matériel et des ustensiles
+const recipesArray = await getDatas();
+const ingredientsObject = getFullIngredients();
+const appliancesObject = getFullAppliance();
+const ustensilesObject = getFullUstensils();
+export { recipesArray, ingredientsObject, appliancesObject, ustensilesObject };

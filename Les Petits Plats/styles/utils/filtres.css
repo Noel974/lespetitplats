@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: space-between;
     margin: 0.75rem 0;
+
   }
   
   #filters {
@@ -11,6 +12,7 @@
     justify-content: start;
     flex-wrap: wrap;
     width: 85%;
+
   }
   
   .filter,
@@ -129,3 +131,16 @@
     padding: 0 5px;
   }
   
+  #ingredientsList{
+    overflow: auto;
+    max-height: 200px
+  }
+
+  #appliancesList{
+    overflow: auto;
+    max-height: 200px
+  }
+  #ustensilsList{
+    overflow: auto;
+    max-height: 200px
+  }
