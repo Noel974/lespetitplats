@@ -41,24 +41,22 @@ export function SearchFromDeleteLabel(recipes) {
   const ActualsLabel = Array.from(document.querySelectorAll(".labels"));
   let updatedRecipes = recipes;
 
-  ActualsLabel.forEach((label) => {
+  for (const label of ActualsLabel) {
     const name = label.getAttribute("data-normalized");
     const type = label.getAttribute("data-type");
 
     if (type === "ingredients") {
       updatedRecipes = SearchFromIngredients(name, updatedRecipes, recipes);
-      iteration += 1;
     } else if (type === "ustensils") {
       updatedRecipes = SearchFromUstensils(name, updatedRecipes, recipes);
-      iteration += 1;
     } else if (type === "appliances") {
       updatedRecipes = SearchFromAppliances(name, updatedRecipes, recipes);
-      iteration += 1;
     }
-      });
+  }
 
   return updatedRecipes;
 }
+
 
 export function SearchListInput(filters, input) {
   if (input !== 0) {

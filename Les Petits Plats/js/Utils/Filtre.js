@@ -274,24 +274,16 @@ function GetFilters(Obj) {
   const arrayName = Object.keys(Obj)[0];
   const arrayFull = Object.values(Obj)[0].sort((a, b) => a.localeCompare(b));
 
-  arrayFull.forEach((ActualFilter) => {
+  for (const ActualFilter of arrayFull) {
     const isExist = document.getElementById(`${ActualFilter}Filter`);
     if (!isExist) {
       const filter = new Filter(ActualFilter, arrayName);
       filter.SetFilter();
     }
-  });
+  }
 }
 
-/** Fonction qui affiche ou cache la liste de filtre.
- * @param {string} FilterID - Le nom du bouton de filtre
- */
 
-
-/** Fonction qui met à jour les filtres en fonction des recettes filtrées.
- * @param {Array} UpdatedFilter - Le tableau contenant les recettes filtrées
- * @returns {Array} - Le tableau mis à jour des éléments de filtre
- */
 function UpdateFilters(UpdatedFilter) {
   const NewappliancesArray = [];
   const NewIngredientsArray = [];
