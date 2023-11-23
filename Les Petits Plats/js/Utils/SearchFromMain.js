@@ -1,4 +1,9 @@
 export function SearchFromMain(ValueToSearch, recipes) {
+   // Ajout d'une condition pour la validation automatique
+   if (ValueToSearch.length < 3) {
+    // Si la longueur de la valeur de recherche est inférieure à trois, retourner un tableau vide
+    return searchResults;
+  }
   const searchResults = [];
 
   for (const recipe of recipes) {
@@ -10,7 +15,7 @@ export function SearchFromMain(ValueToSearch, recipes) {
     ];
 
     for (const element of ToCheck) {
-      if (Normalized(element).match(Normalized(ValueToSearch))) {
+      if (element.length >= 3 && Normalized(element).match(Normalized(ValueToSearch))) {
         searchResults.push(recipe);
         break; // Sortir de la boucle interne une fois qu'une correspondance est trouvée.
       }
