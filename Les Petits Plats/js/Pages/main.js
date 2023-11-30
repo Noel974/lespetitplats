@@ -11,13 +11,19 @@ const fullArray = [ingredientsObject, appliancesObject, ustensilesObject];
 const mainInput = document.querySelector('#mainSearchInput');
 const recipeContainer = document.querySelector('#recipesCardsContainer');
 const labelsContainer = document.querySelector('#labelsContainer');
-
+const mainSearchButton = document.querySelector('#mainSearchButton');
 
 // Fonction pour gérer la recherche de recettes
 function init() {
   displayRecipes(recipesArray); // Affiche toutes les recettes au chargement de la page
   GetAllFilters(fullArray); // Crée les filtres de recherche.
 
+   // Ajout d'un gestionnaire d'événements au clic du bouton
+mainSearchButton.addEventListener('click', () => {
+  initSearch();
+});
+
+// Ajout d'un gestionnaire d'événements au clavier pour la barre de recherche
   mainInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       event.preventDefault(); // Empêche le comportement par défaut du formulaire (rechargement de la page)
